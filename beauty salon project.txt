@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+
+struct BeautySaloonServices
+{
+    char ServicesName[25]; // increased size
+    float Price;
+};
+
+int userChoice;
+
+int displayMenu() 
+{
+    cout << "Press 0: For Haircut"<<endl;
+    cout << "Press 1: For Facial"<<endl;
+    cout << "Press 2: For Manicure"<<endl;
+    cout << "Press 3: For Pedicure"<<endl;
+    cout << "Press 4: For Hair Styling"<<endl;
+    cout << "Press 5: For Waxing"<<endl;
+    cout << "Press 6: For Eyebrows"<<endl;
+    cout << "Press 7: Display Total Bill & Exit"<<endl;
+    cout << "Enter (0-7): ";
+    cin >> userChoice;
+
+    return userChoice;
+}
+
+int main() {
+    int Services = 7;
+    BeautySaloonServices* saloonServices = new BeautySaloonServices[Services];
+
+    saloonServices[0] = { "Haircut",8.99 };
+    saloonServices[1] = { "Facial", 13.99 };
+    saloonServices[2] = { "Manicure", 8.99 };
+    saloonServices[3] = { "Pedicure", 9.99 };
+    saloonServices[4] = { "Hair Styling", 15.99 };
+    saloonServices[5] = { "Waxing", 4.99 };
+    saloonServices[6] = { "Eyebrows", 2.99 };
+
+    float totalBill = 0;
+
+    cout << "WELCOME TO THE BEAUTY SALON!\n";
+
+    do {
+        userChoice = displayMenu();
+
+        if (userChoice >= 0 && userChoice <= 6)
+        {
+            totalBill += saloonServices[userChoice].Price;
+            cout << "Added " << saloonServices[userChoice].ServicesName 
+                 << " for $" << saloonServices[userChoice].Price 
+                 << " to your bill.\n";
+        }
+        else if (userChoice == 7) 
+        {
+            cout << "Checking out...\n";
+        }
+        else {
+            cout << "Invalid choice. Please enter a valid number"<<endl;
+        }
+
+    } while (userChoice != 7);
+     
+    if(totalBill == 0)
+    {
+        cout<<"NO service taken yet!"<<endl;
+    }
+
+    cout << "Thank you for visiting the Beauty Salon!\n";
+
+    if(totalBill != 0)
+    {
+        cout << "Your Total Bill = $" << totalBill << endl;
+    }
+
+    delete[] saloonServices;
+
+    return 0;
+}
